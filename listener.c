@@ -6,16 +6,12 @@
 #include <unistd.h>
 
 int main(int argc, char **argv) {
+    int r;
     int nq = 0;
     if (argc >= 2)
         nq = atoi(argv[1]);
     int s = socket(AF_INET, SOCK_STREAM, 0);
     assert(s >= 0);
-    /* https://stackoverflow.com/a/24194999 */
-    int enable = 1;
-    int r = setsockopt(s, SOL_SOCKET, SO_REUSEADDR,
-                         (void *) &enable, (socklen_t) sizeof(enable));
-    assert(r >= 0);
     struct sockaddr_in in = {
         .sin_family = AF_INET,
         .sin_port = htons(15501),

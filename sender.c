@@ -5,6 +5,7 @@
 #include <unistd.h>
 
 int main() {
+    int r;
     int s = socket(AF_INET, SOCK_STREAM, 0);
     assert(s >= 0);
     struct sockaddr_in in = {
@@ -12,7 +13,7 @@ int main() {
         .sin_port = htons(15501),
         .sin_addr = {htonl(INADDR_LOOPBACK)},
     };
-    int r = connect(s, (struct sockaddr *) &in, sizeof in);
+    r = connect(s, (struct sockaddr *) &in, sizeof in);
     assert(r >= 0);
     fprintf(stderr, "sender connected\n");
     getchar();
